@@ -1,0 +1,5 @@
+/home/platosha/Desktop/BMSTU/7sem/Testing/source/Tours/ToursTests/obj/Debug/net5.0/ToursTests.csproj.AssemblyReference.cache
+/home/platosha/Desktop/BMSTU/7sem/Testing/source/Tours/ToursTests/obj/Debug/net5.0/ToursTests.GeneratedMSBuildEditorConfig.editorconfig
+/home/platosha/Desktop/BMSTU/7sem/Testing/source/Tours/ToursTests/obj/Debug/net5.0/ToursTests.AssemblyInfoInputs.cache
+/home/platosha/Desktop/BMSTU/7sem/Testing/source/Tours/ToursTests/obj/Debug/net5.0/ToursTests.AssemblyInfo.cs
+/home/platosha/Desktop/BMSTU/7sem/Testing/source/Tours/ToursTests/obj/Debug/net5.0/ToursTests.csproj.CoreCompileInputs.cache

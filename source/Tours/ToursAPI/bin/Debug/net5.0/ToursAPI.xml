@@ -1,0 +1,183 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ToursAPI</name>
+    </assembly>
+    <members>
+        <member name="M:ToursAPI.Controllers.ApiFoodController.GetAllFood(System.String,System.Nullable{ToursWeb.ModelsBL.FMenu},System.Nullable{System.Boolean})">
+            <summary>Foods by parameters</summary>
+            <param name="category">Breakfast, Half board, Full board, All inclusive, Continental breakfast, American breakfast</param>
+            <param name="menu"></param>
+            <param name="bar"></param>
+            <returns>Foods information</returns>
+            <response code="200">Foods found</response>
+            <response code="204">No food</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiFoodController.GetFoodByID(System.Int32)">
+            <summary>Food by ID</summary>
+            <returns>Food information</returns>
+            <response code="200">Food found</response>
+            <response code="404">No food</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiFoodController.AddFood(ToursWeb.ModelsDTO.FoodUserDTO)">
+            <summary>Adding food</summary>
+            <param name="foodDTO">Food to add</param>
+            <returns>Added food</returns>
+            <response code="201">Food added</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiFoodController.UpdateFood(System.Int32,ToursWeb.ModelsDTO.FoodUserDTO)">
+            <summary>Updating food</summary>
+            <param name="foodDTO">Food to update</param>
+            <returns>Updated food</returns>
+            <response code="200">Food updated</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiFoodController.DeleteFood(System.Int32)">
+            <summary>Removing food by ID</summary>
+            <returns>Removed food</returns>
+            <response code="200">Food removed</response>
+            <response code="404">No food</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiHotelController.GetAllHotels(System.String,System.Nullable{System.Int32},System.String,System.Nullable{System.Boolean})">
+            <summary>Hotels by parameters</summary>
+            <param name="city"></param>
+            <param name="cls">Class (0 - 5)</param>
+            <param name="type">Hotel, Apartment, Hostel, Guest house, Motel, Vila, Camping, BnB</param>
+            <param name="sp"></param>
+            <returns>Hotels information</returns>
+            <response code="200">Hotels found</response>
+            <response code="204">No hotels</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiHotelController.GetHotelByID(System.Int32)">
+            <summary>Hotel by ID</summary>
+            <returns>Hotel information</returns>
+            <response code="200">Hotel found</response>
+            <response code="404">No hotel</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiHotelController.AddHotel(ToursWeb.ModelsDTO.HotelUserDTO)">
+            <summary>Adding hotel</summary>
+            <param name="hotelDTO">Hotel to add</param>
+            <returns>Added hotel</returns>
+            <response code="201">Hotel added</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiHotelController.UpdateHotel(System.Int32,ToursWeb.ModelsDTO.HotelUserDTO)">
+            <summary>Updating hotel</summary>
+            <param name="hotelDTO">Hotel to update</param>
+            <returns>Updated hotel</returns>
+            <response code="200">Hotel updated</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiHotelController.DeleteHotel(System.Int32)">
+            <summary>Removing hotel by ID</summary>
+            <returns>Removed hotel</returns>
+            <response code="200">Hotel removed</response>
+            <response code="404">No hotel</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTourController.GetAllTours(System.String,System.String,System.String,System.String,System.Nullable{System.Int32})">
+            <summary>Tours by parameters</summary>
+            <returns>Tours information</returns>
+            <param name="city"></param>
+            <param name="name"></param>
+            <param name="dBegin">Format: dd-mm-yyyy</param>
+            <param name="dEnd">Format: dd-mm-yyyy</param>
+            <param name="userID"></param>
+            <response code="200">Tours found</response>
+            <response code="204">No tours</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTourController.GetTourByID(System.Int32)">
+            <summary>Tour by ID</summary>
+            <returns>Tour information</returns>
+            <response code="200">Tour found</response>
+            <response code="404">No tour</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTourController.AddTour(ToursWeb.ModelsDTO.TourUserDTO)">
+            <summary>Adding tour</summary>
+            <param name="tourDTO">Tour to add</param>
+            <returns>Added tour</returns>
+            <response code="201">Tour added</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTourController.UpdateTour(System.Int32,ToursWeb.ModelsDTO.TourUserDTO)">
+            <summary>Updating tour</summary>
+            <param name="tourDTO">Tour to update</param>
+            <returns>Updated tour</returns>
+            <response code="200">Tour updated</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTourController.DeleteTour(System.Int32)">
+            <summary>Removing transfer by ID</summary>
+            <returns>Removed transfer</returns>
+            <response code="200">Transfer removed</response>
+            <response code="404">No transfer</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTransferController.GetAllTransfer(System.Nullable{ToursWeb.ModelsBL.TType},System.String,System.String)">
+            <summary>Transfers by parameters</summary>
+            <returns>Transfers information</returns>
+            <param name="type"></param>
+            <param name="cityFrom"></param>
+            <param name="date">Format: dd-mm-yyyy</param>
+            <response code="200">Transfers found</response>
+            <response code="204">No transfers</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTransferController.GetTransferByID(System.Int32)">
+            <summary>Transfer by ID</summary>
+            <returns>Transfer information</returns>
+            <response code="200">Transfer found</response>
+            <response code="404">No transfer</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTransferController.AddTransfer(ToursWeb.ModelsDTO.TransferUserDTO)">
+            <summary>Adding transfer</summary>
+            <param name="transferDTO">Transfer to add</param>
+            <returns>Added transfer</returns>
+            <response code="201">Transfer added</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTransferController.UpdateTransfer(System.Int32,ToursWeb.ModelsDTO.TransferUserDTO)">
+            <summary>Updating transfer</summary>
+            <param name="transferDTO">Transfer to update</param>
+            <returns>Updated transfer</returns>
+            <response code="200">Transfer updated</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiTransferController.DeleteTransfer(System.Int32)">
+            <summary>Removing transfer by ID</summary>
+            <returns>Removed transfer</returns>
+            <response code="200">Transfer removed</response>
+            <response code="404">No transfer</response>
+            <response code="500">Internal server error</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiUserController.GetAllUsers(System.String)">
+            <summary>Users by params</summary>
+            <returns>Users information</returns>
+            <response code="200">Users found</response>
+            <response code="401">Error authorization</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiUserController.GetAllUserInfo(System.Int32)">
+            <summary>User by ID</summary>
+            <returns>User information</returns>
+            <response code="200">User found</response>
+            <response code="404">No user</response>
+        </member>
+        <member name="M:ToursAPI.Controllers.ApiUserController.ManageTours(ToursAPI.Controllers.ApiUserController.Action,System.Int32,System.Int32)">
+            <summary>Manage tours</summary>
+            <returns>Tours information</returns>
+            <response code="200">Tours updated</response>
+            <response code="204">No booked tours</response>
+            <response code="409">Constraint error</response>
+            <response code="500">Internal server error</response>
+        </member>
+    </members>
+</doc>
