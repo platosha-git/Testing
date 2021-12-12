@@ -30,16 +30,16 @@ namespace ToursTests.Tests
         public void FindByID()
         {
             const int hotelID = 1;
-            var hotelRepository = new Mock<IHotelRepository>();
+            
             var expHotel = new HotelBuilder()
                 .WhereHotelID(hotelID)
                 .Build();
-
-            hotelRepository
-                .Setup(x => x.FindByID(hotelID))
-                .Returns(expHotel);
             
-            var hotelController = new HotelController(hotelRepository.Object);
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindByID(hotelID))
+                .Returns(expHotel);
+            var hotelController = new HotelController(mock.Object);
+            
             var actHotel = hotelController.GetHotelByID(hotelID);
             
             Assert.Equal(expHotel, actHotel);
@@ -50,19 +50,17 @@ namespace ToursTests.Tests
         {
             const string city = "London";
             
-            var hotelRepository = new Mock<IHotelRepository>();
-            var expHotels = new List<HotelBL>()
-            {
-                new HotelBuilder()
-                    .WhereCity(city)
-                    .Build()
-            };
+            var expHotel = new HotelBuilder()
+                .WhereCity(city)
+                .Build();
             
-            hotelRepository
-                .Setup(x => x.FindHotelsByCity(city))
+            var expHotels = new List<HotelBL>() {expHotel};
+            
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindHotelsByCity(city))
                 .Returns(expHotels);
+            var hotelController = new HotelController(mock.Object);
             
-            var hotelController = new HotelController(hotelRepository.Object);
             var actHotels = hotelController.GetHotelsByCity(city);
             
             Assert.Equal(expHotels, actHotels);
@@ -73,19 +71,17 @@ namespace ToursTests.Tests
         {
             const string type = "Hotel";
             
-            var hotelRepository = new Mock<IHotelRepository>();
-            var expHotels = new List<HotelBL>()
-            {
-                new HotelBuilder()
-                    .WhereType(type)
-                    .Build()
-            };
+            var expHotel = new HotelBuilder()
+                .WhereType(type)
+                .Build();
             
-            hotelRepository
-                .Setup(x => x.FindHotelsByType(type))
+            var expHotels = new List<HotelBL>() {expHotel};
+            
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindHotelsByType(type))
                 .Returns(expHotels);
+            var hotelController = new HotelController(mock.Object);
             
-            var hotelController = new HotelController(hotelRepository.Object);
             var actHotels = hotelController.GetHotelsByType(type);
             
             Assert.Equal(expHotels, actHotels);
@@ -96,19 +92,17 @@ namespace ToursTests.Tests
         {
             const int cls = 5;
             
-            var hotelRepository = new Mock<IHotelRepository>();
-            var expHotels = new List<HotelBL>()
-            {
-                new HotelBuilder()
-                    .WhereClass(cls)
-                    .Build()
-            };
+            var expHotel = new HotelBuilder()
+                .WhereClass(cls)
+                .Build();
             
-            hotelRepository
-                .Setup(x => x.FindHotelsByClass(cls))
+            var expHotels = new List<HotelBL>() {expHotel};
+            
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindHotelsByClass(cls))
                 .Returns(expHotels);
+            var hotelController = new HotelController(mock.Object);
             
-            var hotelController = new HotelController(hotelRepository.Object);
             var actHotels = hotelController.GetHotelsByClass(cls);
             
             Assert.Equal(expHotels, actHotels);
@@ -119,19 +113,17 @@ namespace ToursTests.Tests
         {
             const bool sp = true;
             
-            var hotelRepository = new Mock<IHotelRepository>();
-            var expHotels = new List<HotelBL>()
-            {
-                new HotelBuilder()
-                    .WhereSwimPool(sp)
-                    .Build()
-            };
+            var expHotel = new HotelBuilder()
+                .WhereSwimPool(sp)
+                .Build();
             
-            hotelRepository
-                .Setup(x => x.FindHotelsBySwimPool(sp))
+            var expHotels = new List<HotelBL>() {expHotel};
+            
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindHotelsBySwimPool(sp))
                 .Returns(expHotels);
+            var hotelController = new HotelController(mock.Object);
             
-            var hotelController = new HotelController(hotelRepository.Object);
             var actHotels = hotelController.GetHotelsBySwimPool(sp);
             
             Assert.Equal(expHotels, actHotels);
