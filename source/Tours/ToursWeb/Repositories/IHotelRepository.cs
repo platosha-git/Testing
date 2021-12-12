@@ -8,8 +8,8 @@ namespace ToursWeb.Repositories
     {
         List<HotelBL> FindHotelsByCity(string city);
         List<HotelBL> FindHotelsByName(string name);
-        List<HotelBL> FindHotelByType(string type);
-        List<HotelBL> FindHotelByClass(int cls);
-        List<HotelBL> FindHotelBySwimPool(bool sp);
+        List<HotelBL> FindHotelsByType(string type);
+        List<HotelBL> FindHotelsByClass(int cls);
+        List<HotelBL> FindHotelsBySwimPool(bool sp);
     }
 }

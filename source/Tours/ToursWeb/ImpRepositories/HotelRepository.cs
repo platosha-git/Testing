@@ -134,7 +134,7 @@ namespace ToursWeb.ImpRepositories
             return lHotelsBL;
         }
 
-        public List<HotelBL> FindHotelByType(string type)
+        public List<HotelBL> FindHotelsByType(string type)
         {
             IQueryable<Hotel> hotels = _db.Hotels.Where(needed => needed.Type == type);
             List<Hotel> lHotels = hotels.ToList();
@@ -142,7 +142,7 @@ namespace ToursWeb.ImpRepositories
             return lHotelsBL;
         }
 
-        public List<HotelBL> FindHotelByClass(int cls)
+        public List<HotelBL> FindHotelsByClass(int cls)
         {
             IQueryable<Hotel> hotels = _db.Hotels.Where(needed => needed.Class == cls);
             List<Hotel> lHotels = hotels.ToList();
@@ -150,7 +150,7 @@ namespace ToursWeb.ImpRepositories
             return lHotelsBL;
         }
 
-        public List<HotelBL> FindHotelBySwimPool(bool sp)
+        public List<HotelBL> FindHotelsBySwimPool(bool sp)
         {
             IQueryable<Hotel> hotels = _db.Hotels.Where(needed => needed.Swimpool == sp);
             List<Hotel> lHotels = hotels.ToList();

@@ -1,26 +1,28 @@
 using System.Collections.Generic;
-using ToursWeb.Repositories;
 using Moq;
+using ToursWeb.Controllers;
+using ToursWeb.ModelsBL;
+using ToursWeb.Repositories;
 using Xunit;
 
-namespace ToursTests
+namespace ToursTests.Tests
 {
-    public class FoodTest1
+    public class FoodTests
     {
         [Fact]
-        public void Test1()
+        public void GetAll()
         {
             // Arrange
             var foodRepository = new Mock<IFoodRepository>();
             var foods = new List<FoodBL>();
             foodRepository
-                .Setup(x => x.GetAll())
+                .Setup(x => x.FindAll())
                 .Returns(foods);
             
             var foodController = new FoodController(foodRepository.Object);
             
             // Act
-            var result = foodController.GetAll();
+            var result = foodController.GetAllFood();
             
             // Assert
             Assert.Null(result);

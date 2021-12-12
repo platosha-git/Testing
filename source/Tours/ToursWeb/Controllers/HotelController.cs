@@ -31,17 +31,17 @@ namespace ToursWeb.Controllers
 
         public List<HotelBL> GetHotelsByType(string type)
         {
-            return _hotelRepository.FindHotelByType(type);
+            return _hotelRepository.FindHotelsByType(type);
         }
 
         public List<HotelBL> GetHotelsByClass(int cls)
         {
-            return _hotelRepository.FindHotelByClass(cls);
+            return _hotelRepository.FindHotelsByClass(cls);
         }
 
         public List<HotelBL> GetHotelsBySwimPool(bool sp)
         {
-            return _hotelRepository.FindHotelBySwimPool(sp);
+            return _hotelRepository.FindHotelsBySwimPool(sp);
         }
         
         public ExitCode AddHotel(HotelBL hotel)
