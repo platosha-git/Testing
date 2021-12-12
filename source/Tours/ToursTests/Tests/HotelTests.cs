@@ -13,17 +13,14 @@ namespace ToursTests.Tests
         [Fact]
         public void FindAll()
         {
-            var hotelRepository = new Mock<IHotelRepository>();
-            var expHotels = new List<HotelBL>()
-            {
-                new HotelBuilder().Build()
-            };
-            
-            hotelRepository
-                .Setup(x => x.FindAll())
+            var expHotel = new HotelBuilder().Build();
+            var expHotels = new List<HotelBL>() {expHotel};
+
+            var mock = new Mock<IHotelRepository>();
+            mock.Setup(x => x.FindAll())
                 .Returns(expHotels);
+            var hotelController = new HotelController(mock.Object);
             
-            var hotelController = new HotelController(hotelRepository.Object);
             var actHotels = hotelController.GetAllHotels();
             
             Assert.Equal(expHotels, actHotels);

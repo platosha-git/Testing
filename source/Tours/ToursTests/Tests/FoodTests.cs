@@ -13,17 +13,14 @@ namespace ToursTests.Tests
         [Fact]
         public void FindAll()
         {
-            var foodRepository = new Mock<IFoodRepository>();
-            var expFoods = new List<FoodBL>()
-            {
-                new FoodBuilder().Build()
-            };
-            
-            foodRepository
-                .Setup(x => x.FindAll())
+            var expFood = new FoodBuilder().Build();
+            var expFoods = new List<FoodBL>() {expFood};
+
+            var mock = new Mock<IFoodRepository>();
+            mock.Setup(x => x.FindAll())
                 .Returns(expFoods);
+            var foodController = new FoodController(mock.Object);
             
-            var foodController = new FoodController(foodRepository.Object);
             var actFoods = foodController.GetAllFood();
             
             Assert.Equal(expFoods, actFoods);
@@ -33,16 +30,16 @@ namespace ToursTests.Tests
         public void FindByID()
         {
             const int foodID = 1;
-            var foodRepository = new Mock<IFoodRepository>();
+            
             var expFood = new FoodBuilder()
                 .WhereFoodID(foodID)
                 .Build();
-
-            foodRepository
-                .Setup(x => x.FindByID(foodID))
-                .Returns(expFood);
             
-            var foodController = new FoodController(foodRepository.Object);
+            var mock = new Mock<IFoodRepository>();
+            mock.Setup(x => x.FindByID(foodID))
+                .Returns(expFood);
+            var foodController = new FoodController(mock.Object);
+            
             var actFood = foodController.GetFoodByID(foodID);
             
             Assert.Equal(expFood, actFood);
@@ -52,20 +49,18 @@ namespace ToursTests.Tests
         public void FindByCategory()
         {
             const string category = "Breakfast";
+
+            var expFood = new FoodBuilder()
+                .WhereCategory(category)
+                .Build();
             
-            var foodRepository = new Mock<IFoodRepository>();
-            var expFoods = new List<FoodBL>()
-            {
-                new FoodBuilder()
-                    .WhereCategory(category)
-                    .Build()
-            };
+            var expFoods = new List<FoodBL>() {expFood};
             
-            foodRepository
-                .Setup(x => x.FindFoodByCategory(category))
+            var mock = new Mock<IFoodRepository>();
+            mock.Setup(x => x.FindFoodByCategory(category))
                 .Returns(expFoods);
+            var foodController = new FoodController(mock.Object);
             
-            var foodController = new FoodController(foodRepository.Object);
             var actFoods = foodController.GetFoodByCategory(category);
             
             Assert.Equal(expFoods, actFoods);
@@ -76,19 +71,16 @@ namespace ToursTests.Tests
         {
             const string menu = "Vegeterian";
             
-            var foodRepository = new Mock<IFoodRepository>();
-            var expFoods = new List<FoodBL>()
-            {
-                new FoodBuilder()
-                    .WhereMenu(menu)
-                    .Build()
-            };
+            var expFood = new FoodBuilder()
+                .WhereMenu(menu)
+                .Build();
+            var expFoods = new List<FoodBL>() {expFood};
             
-            foodRepository
-                .Setup(x => x.FindFoodByMenu(menu))
+            var mock = new Mock<IFoodRepository>();
+            mock.Setup(x => x.FindFoodByMenu(menu))
                 .Returns(expFoods);
+            var foodController = new FoodController(mock.Object);
             
-            var foodController = new FoodController(foodRepository.Object);
             var actFoods = foodController.GetFoodByMenu(menu);
             
             Assert.Equal(expFoods, actFoods);
@@ -99,19 +91,16 @@ namespace ToursTests.Tests
         {
             const bool bar = true;
             
-            var foodRepository = new Mock<IFoodRepository>();
-            var expFoods = new List<FoodBL>()
-            {
-                new FoodBuilder()
-                    .WhereBar(bar)
-                    .Build()
-            };
+            var expFood = new FoodBuilder()
+                .WhereBar(bar)
+                .Build();
+            var expFoods = new List<FoodBL>() {expFood};
             
-            foodRepository
-                .Setup(x => x.FindFoodByBar(bar))
+            var mock = new Mock<IFoodRepository>();
+            mock.Setup(x => x.FindFoodByBar(bar))
                 .Returns(expFoods);
+            var foodController = new FoodController(mock.Object);
             
-            var foodController = new FoodController(foodRepository.Object);
             var actFoods = foodController.GetFoodByBar(bar);
             
             Assert.Equal(expFoods, actFoods);
