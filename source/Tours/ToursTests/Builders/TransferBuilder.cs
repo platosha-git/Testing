@@ -32,5 +32,23 @@ namespace ToursTests.Builders
             Transferid = transferID;
             return this;
         }
+        
+        public TransferBuilder WhereType(string type)
+        {
+            Type = (TType) Enum.Parse(typeof(TType), type);
+            return this;
+        }
+        
+        public TransferBuilder WhereCity(string city)
+        {
+            Cityfrom = city;
+            return this;
+        }
+        
+        public TransferBuilder WhereDate(DateTime date)
+        {
+            Departuretime = date;
+            return this;
+        }
     }
 }
