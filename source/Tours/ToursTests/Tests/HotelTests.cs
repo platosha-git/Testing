@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Moq;
-using ToursTests.Builders;
-using ToursWeb.Controllers;
-using ToursWeb.ModelsBL;
 using ToursWeb.Repositories;
+using ToursWeb.Controllers;
+using ToursTests.Builders;
+using ToursWeb.ModelsBL;
 using Xunit;
+using Moq;
 
 namespace ToursTests.Tests
 {

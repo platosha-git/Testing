@@ -1,3 +1,4 @@
+using System;
 using ToursWeb.ModelsBL;
 
 namespace ToursTests.Builders
@@ -10,14 +11,7 @@ namespace ToursTests.Builders
         private bool? Bar;
         private int Cost;
 
-        public FoodBuilder()
-        {
-            Foodid = 0;
-            Category = "";
-            Menu = null;
-            Bar = false;
-            Cost = 0;
-        }
+        public FoodBuilder() { }
 
         public FoodBL Build()
         {
@@ -31,6 +25,30 @@ namespace ToursTests.Builders
             };
 
             return food;
+        }
+        
+        public FoodBuilder WhereFoodID(int foodID)
+        {
+            Foodid = foodID;
+            return this;
+        }
+        
+        public FoodBuilder WhereCategory(string category)
+        {
+            Category = category;
+            return this;
+        }
+        
+        public FoodBuilder WhereMenu(string menu)
+        {
+            Menu = (menu == "") ? null : (FMenu) Enum.Parse(typeof(FMenu), menu);
+            return this;
+        }
+        
+        public FoodBuilder WhereBar(bool bar)
+        {
+            Bar = bar;
+            return this;
         }
     }
 }
