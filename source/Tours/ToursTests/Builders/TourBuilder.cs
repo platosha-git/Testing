@@ -30,5 +30,23 @@ namespace ToursTests.Builders
 
             return tour;
         }
+        
+        public TourBuilder WhereTourID(int tourID)
+        {
+            Tourid = tourID;
+            return this;
+        }
+        
+        public TourBuilder WhereDateBegin(DateTime dateB)
+        {
+            Datebegin = dateB;
+            return this;
+        }
+        
+        public TourBuilder WhereDateEnd(DateTime dateE)
+        {
+            Dateend = dateE;
+            return this;
+        }
     }
 }
