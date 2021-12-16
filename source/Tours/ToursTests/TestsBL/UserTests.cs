@@ -6,7 +6,7 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.Tests
+namespace ToursTests.TestsBL
 {
     public class UserTests
     {
@@ -23,6 +23,7 @@ namespace ToursTests.Tests
             
             var actUsers = userController.GetAllUsers();
             
+            Assert.NotNull(expUsers);
             Assert.Equal(expUsers, actUsers);
         }
         
@@ -43,6 +44,7 @@ namespace ToursTests.Tests
             
             var actUsers = userController.GetUserByLogin(login);
             
+            Assert.NotNull(expUsers);
             Assert.Equal(expUsers, actUsers);
         }
         
@@ -60,6 +62,7 @@ namespace ToursTests.Tests
             
             var actTours = userController.GetBookedTours(userID);
             
+            Assert.NotNull(expTours);
             Assert.Equal(expTours, actTours);
         }
     }

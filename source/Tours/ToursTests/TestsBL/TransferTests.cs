@@ -7,7 +7,7 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.Tests
+namespace ToursTests.TestsBL
 {
     public class TransferTests
     {
@@ -24,6 +24,7 @@ namespace ToursTests.Tests
             
             var actTransfers = transferController.GetAllTransfer();
             
+            Assert.NotNull(expTransfers);
             Assert.Equal(expTransfers, actTransfers);
         }
         
@@ -43,6 +44,7 @@ namespace ToursTests.Tests
             
             var actTransfer = transferController.GetTransferByID(transferID);
             
+            Assert.NotNull(expTransfer);
             Assert.Equal(expTransfer, actTransfer);
         }
         
@@ -64,6 +66,7 @@ namespace ToursTests.Tests
             
             var actTransfers = transferController.GetTransferByType(type);
             
+            Assert.NotNull(expTransfers);
             Assert.Equal(expTransfers, actTransfers);
         }
         
@@ -85,6 +88,7 @@ namespace ToursTests.Tests
             
             var actTransfers = transferController.GetTransfersByCity(city);
             
+            Assert.NotNull(expTransfers);
             Assert.Equal(expTransfers, actTransfers);
         }
         
@@ -106,6 +110,7 @@ namespace ToursTests.Tests
             
             var actTransfers = transferController.GetTransfersByDate(date);
             
+            Assert.NotNull(expTransfers);
             Assert.Equal(expTransfers, actTransfers);
         }
     }

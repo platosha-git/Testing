@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\ToursAPI\ToursAPI.csproj" />
       <ProjectReference Include="..\ToursWeb\ToursWeb.csproj" />
     </ItemGroup>
 

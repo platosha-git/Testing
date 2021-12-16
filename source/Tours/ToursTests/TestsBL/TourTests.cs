@@ -7,7 +7,7 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.Tests
+namespace ToursTests.TestsBL
 {
     public class TourTests
     {
@@ -28,6 +28,7 @@ namespace ToursTests.Tests
             
             var actTours = tourController.GetAllTours();
             
+            Assert.NotNull(expTours);
             Assert.Equal(expTours, actTours);
         }
         
@@ -47,6 +48,7 @@ namespace ToursTests.Tests
             
             var actTours = tourController.GetTourByID(tourID);
             
+            Assert.NotNull(expTour);
             Assert.Equal(expTour, actTours);
         }
         
@@ -70,6 +72,7 @@ namespace ToursTests.Tests
             
             var actTours = tourController.GetToursByDate(dateB, dateE);
             
+            Assert.NotNull(expTours);
             Assert.Equal(expTours, actTours);
         }
     }

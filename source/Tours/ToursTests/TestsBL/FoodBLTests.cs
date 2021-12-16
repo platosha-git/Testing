@@ -6,9 +6,9 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.Tests
+namespace ToursTests.TestsBL
 {
-    public class FoodTests
+    public class FoodBLTests
     {
         [Fact]
         public void FindAll()
@@ -23,6 +23,7 @@ namespace ToursTests.Tests
             
             var actFoods = foodController.GetAllFood();
             
+            Assert.NotNull(expFoods);
             Assert.Equal(expFoods, actFoods);
         }
         
@@ -42,6 +43,7 @@ namespace ToursTests.Tests
             
             var actFood = foodController.GetFoodByID(foodID);
             
+            Assert.NotNull(expFood);
             Assert.Equal(expFood, actFood);
         }
         
@@ -63,6 +65,7 @@ namespace ToursTests.Tests
             
             var actFoods = foodController.GetFoodByCategory(category);
             
+            Assert.NotNull(expFoods);
             Assert.Equal(expFoods, actFoods);
         }
         
@@ -83,6 +86,7 @@ namespace ToursTests.Tests
             
             var actFoods = foodController.GetFoodByMenu(menu);
             
+            Assert.NotNull(expFoods);
             Assert.Equal(expFoods, actFoods);
         }
         
@@ -103,6 +107,7 @@ namespace ToursTests.Tests
             
             var actFoods = foodController.GetFoodByBar(bar);
             
+            Assert.NotNull(expFoods);
             Assert.Equal(expFoods, actFoods);
         }
     }

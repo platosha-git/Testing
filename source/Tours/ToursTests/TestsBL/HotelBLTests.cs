@@ -6,9 +6,9 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.Tests
+namespace ToursTests.TestsBL
 {
-    public class HotelTests
+    public class HotelBLTests
     {
         [Fact]
         public void FindAll()
@@ -23,6 +23,7 @@ namespace ToursTests.Tests
             
             var actHotels = hotelController.GetAllHotels();
             
+            Assert.NotNull(expHotels);
             Assert.Equal(expHotels, actHotels);
         }
         
@@ -42,6 +43,7 @@ namespace ToursTests.Tests
             
             var actHotel = hotelController.GetHotelByID(hotelID);
             
+            Assert.NotNull(expHotel);
             Assert.Equal(expHotel, actHotel);
         }
 
@@ -63,6 +65,7 @@ namespace ToursTests.Tests
             
             var actHotels = hotelController.GetHotelsByCity(city);
             
+            Assert.NotNull(expHotels);
             Assert.Equal(expHotels, actHotels);
         }
         
@@ -84,6 +87,7 @@ namespace ToursTests.Tests
             
             var actHotels = hotelController.GetHotelsByType(type);
             
+            Assert.NotNull(expHotels);
             Assert.Equal(expHotels, actHotels);
         }
         
@@ -105,6 +109,7 @@ namespace ToursTests.Tests
             
             var actHotels = hotelController.GetHotelsByClass(cls);
             
+            Assert.NotNull(expHotels);
             Assert.Equal(expHotels, actHotels);
         }
         
@@ -126,6 +131,7 @@ namespace ToursTests.Tests
             
             var actHotels = hotelController.GetHotelsBySwimPool(sp);
             
+            Assert.NotNull(expHotels);
             Assert.Equal(expHotels, actHotels);
         }
     }
