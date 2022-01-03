@@ -58,6 +58,28 @@ namespace ToursTests.IntegrationTests
 
             Cleanup();
         }
+        
+        [Fact]
+        public void FindByCategory_Breakfast_NotNull()
+        {
+            const string category = "Breakfast";
+            
+            // Arrange
+            List<Food> expFoods = createFoodList(category);
+            _accessObject.toursContext.Foods.AddRange(expFoods);
+            _accessObject.toursContext.SaveChanges();
+            
+            // Act
+            var actFoodsBL = _accessObject.foodRepository.FindFoodByCategory(category);
+            var actFoods = getFoodList(actFoodsBL);
+
+            // Assert
+            Assert.NotNull(actFoods);
+            Assert.Equal(expFoods.Count, actFoods.Count);
+            Assert.True(areEqual(expFoods, actFoods));
+
+            Cleanup();
+        }
 
         private void Cleanup()
         {
@@ -65,13 +87,14 @@ namespace ToursTests.IntegrationTests
             _accessObject.toursContext.SaveChanges();
         }
 
-        private List<Food> createFoodList()
+        private List<Food> createFoodList(string category = null)
         {
             var foods = new List<Food>();
             for (var i = 1; i < 5; i++)
             {
                 var curFoodB = new FoodBuilder()
                     .WhereFoodID(i)
+                    .WhereCategory(category)
                     .Build();
                 var curFood = new Food(curFoodB);
                 foods.Add(curFood);
