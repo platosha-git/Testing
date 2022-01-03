@@ -8,7 +8,7 @@ using Moq;
 
 namespace ToursTests.TestsBL
 {
-    public class UserTests
+    public class UserBLTests
     {
         [Fact]
         public void FindAll()

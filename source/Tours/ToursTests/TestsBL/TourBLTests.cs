@@ -9,7 +9,7 @@ using Moq;
 
 namespace ToursTests.TestsBL
 {
-    public class TourTests
+    public class TourBLTests
     {
         private IHotelRepository mockH = new Mock<IHotelRepository>().Object;
         private IFoodRepository mockF = new Mock<IFoodRepository>().Object;

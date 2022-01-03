@@ -9,7 +9,7 @@ using Moq;
 
 namespace ToursTests.TestsBL
 {
-    public class TransferTests
+    public class TransferBLTests
     {
         [Fact]
         public void FindAll_NotNull()
