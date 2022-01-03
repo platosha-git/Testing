@@ -19,7 +19,8 @@ namespace ToursTests.IntegrationTests
         public void FindAll_NotNull()
         {
             // Arrange
-            List<Hotel> expHotels = createHotelList();
+            var expHotels = createHotelList();
+            _accessObject.toursContext.ChangeTracker.Clear();
             _accessObject.toursContext.Hotels.AddRange(expHotels);
             _accessObject.toursContext.SaveChanges();
             
@@ -32,7 +33,9 @@ namespace ToursTests.IntegrationTests
             Assert.Equal(expHotels.Count, actHotels.Count);
             Assert.True(areEqual(expHotels, actHotels));
 
-            Cleanup();
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
+            _accessObject.toursContext.SaveChanges();
         }
 
         [Fact]
@@ -41,11 +44,9 @@ namespace ToursTests.IntegrationTests
             const int hotelID = 1;
             
             // Arrange
-            var hotelB = new HotelBuilder()
-                    .WhereHotelID(hotelID)
-                    .Build();
-            var expHotel = new Hotel(hotelB);
-            _accessObject.toursContext.Hotels.Add(expHotel);
+            var expHotels = createHotelList();
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Hotels.AddRange(expHotels);
             _accessObject.toursContext.SaveChanges();
             
             // Act
@@ -54,18 +55,27 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actHotel);
-            Assert.True(areEqual(expHotel, actHotel));
+            Assert.Equal(hotelID, actHotel.Hotelid);
 
-            Cleanup();
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
+            _accessObject.toursContext.SaveChanges();
         }
 
-        /*[Fact]
+        [Fact]
         public void FindByCity_London_NotNull()
         {
             const string city = "London";
             
             // Arrange
-            List<Hotel> expHotels = createHotelList(city);
+            var expHotels = new List<Hotel>();
+            for (var i = 1; i < 5; i++)
+            {
+                var curHotelBL = new HotelBuilder().WhereHotelID(i).WhereCity(city).Build();
+                var curHotel = new Hotel(curHotelBL);
+                expHotels.Add(curHotel);
+            }
+            _accessObject.toursContext.ChangeTracker.Clear();
             _accessObject.toursContext.Hotels.AddRange(expHotels);
             _accessObject.toursContext.SaveChanges();
             
@@ -78,24 +88,18 @@ namespace ToursTests.IntegrationTests
             Assert.Equal(actHotels.Count, actHotels.Count);
             Assert.True(areEqual(actHotels, actHotels));
 
-            Cleanup();
-        }
-        */
-
-        private void Cleanup()
-        {
+            _accessObject.toursContext.ChangeTracker.Clear();
             _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
             _accessObject.toursContext.SaveChanges();
         }
 
-        private List<Hotel> createHotelList(string city = null)
+        private List<Hotel> createHotelList()
         {
             var hotels = new List<Hotel>();
             for (var i = 1; i < 5; i++)
             {
                 var curHotelB = new HotelBuilder()
                     .WhereHotelID(i)
-                    .WhereCity(city)
                     .Build();
                 var curHotel = new Hotel(curHotelB);
                 hotels.Add(curHotel);

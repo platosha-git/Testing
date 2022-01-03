@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ToursWeb.Repositories;
 using Microsoft.Extensions.Logging;
 using ToursWeb.ModelsDB;
@@ -38,7 +39,7 @@ namespace ToursWeb.ImpRepositories
 
         public List<HotelBL> FindAll()
         {
-            List<Hotel> hotels = _db.Hotels.ToList();
+            List<Hotel> hotels = _db.Hotels.AsNoTracking().ToList();
             List<HotelBL> hotelsBL = ListHotelBL(hotels);
             return hotelsBL;
         }
