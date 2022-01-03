@@ -21,7 +21,6 @@ namespace ToursWeb.ModelsDB
         public virtual DbSet<Hotel> Hotels { get; set; }
         public virtual DbSet<Tour> Tours { get; set; }
         public virtual DbSet<Transfer> Transfers { get; set; }
-        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -152,27 +151,6 @@ namespace ToursWeb.ModelsDB
                     .IsRequired()
                     .HasMaxLength(30)
                     .HasColumnName("type");
-            });
-
-            modelBuilder.Entity<User>(entity =>
-            {
-                entity.ToTable("users");
-
-                entity.Property(e => e.Userid)
-                    .ValueGeneratedNever()
-                    .HasColumnName("userid");
-
-                entity.Property(e => e.Accesslevel).HasColumnName("accesslevel");
-
-                entity.Property(e => e.Login)
-                    .HasMaxLength(30)
-                    .HasColumnName("login");
-
-                entity.Property(e => e.Password)
-                    .HasMaxLength(30)
-                    .HasColumnName("password");
-
-                entity.Property(e => e.Toursid).HasColumnName("toursid");
             });
 
             OnModelCreatingPartial(modelBuilder);

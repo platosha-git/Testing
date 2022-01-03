@@ -101,7 +101,6 @@ namespace ToursAPI
             services.AddScoped<IHotelRepository, HotelRepository>();
             services.AddScoped<IFoodRepository, FoodRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
         }
 
         private static void AddControllers(IServiceCollection services)
