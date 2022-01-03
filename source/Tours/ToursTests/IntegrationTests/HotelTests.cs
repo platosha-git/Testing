@@ -59,19 +59,43 @@ namespace ToursTests.IntegrationTests
             Cleanup();
         }
 
+        /*[Fact]
+        public void FindByCity_London_NotNull()
+        {
+            const string city = "London";
+            
+            // Arrange
+            List<Hotel> expHotels = createHotelList(city);
+            _accessObject.toursContext.Hotels.AddRange(expHotels);
+            _accessObject.toursContext.SaveChanges();
+            
+            // Act
+            var actHotelsBL = _accessObject.hotelRepository.FindHotelsByCity(city);
+            var actHotels = getHotelList(actHotelsBL);
+
+            // Assert
+            Assert.NotNull(actHotels);
+            Assert.Equal(actHotels.Count, actHotels.Count);
+            Assert.True(areEqual(actHotels, actHotels));
+
+            Cleanup();
+        }
+        */
+
         private void Cleanup()
         {
             _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
             _accessObject.toursContext.SaveChanges();
         }
 
-        private List<Hotel> createHotelList()
+        private List<Hotel> createHotelList(string city = null)
         {
             var hotels = new List<Hotel>();
             for (var i = 1; i < 5; i++)
             {
                 var curHotelB = new HotelBuilder()
                     .WhereHotelID(i)
+                    .WhereCity(city)
                     .Build();
                 var curHotel = new Hotel(curHotelB);
                 hotels.Add(curHotel);
