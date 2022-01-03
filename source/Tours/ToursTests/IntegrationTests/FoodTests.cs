@@ -15,90 +15,49 @@ namespace ToursTests.IntegrationTests
             _accessObject = tourAccessObject;
         }
 
-        /*[Fact]
+        [Fact]
         public void FindAll_NotNull()
         {
             // Arrange
-            List<Food> teams = new List<Food>();
-            for (var i = 1; i < 4; i++)
-            {
-                var curTeam = new FoodBuilder().WhereFoodID(i).Build();
-                teams.Add(new Food(curTeam));
-            }
-            
-            _accessObject.toursContext.Foods.AddRange(teams);
-            _accessObject.toursContext.SaveChanges();
-            
-            // Act
-            var result = _accessObject.foodRepository.FindAll();
-            
-            // Assert
-            Assert.Equal(teams.Count, result.Count);
-            for (var i = 0; i < teams.Count; i++)
-            {
-                Assert.Equal(teams[i].Foodid, result[i].Foodid);
-            }
-            
-            Cleanup();
+            var expFoods = createFoodList();
+            addEntities(expFoods);
 
+            // Act
+            var actFoodBL = _accessObject.foodRepository.FindAll();
+            var actFoods = getFoodList(actFoodBL);
+
+            // Assert
+            Assert.NotNull(actFoods);
+            Assert.Equal(expFoods.Count, actFoods.Count);
+            Assert.True(areEqual(expFoods, actFoods));
+
+            Cleanup();
         }
 
         [Fact]
         public void FindByID_FirstElement_NotNull()
         {
+            const int foodID = 1;
+            
             // Arrange
-            const int id = 1; 
-            
-            List<Food> teams = new List<Food>();
-            for (var i = 1; i < 4; i++)
-            {
-                var curTeam = new FoodBuilder().WhereFoodID(i).Build();
-                teams.Add(new Food(curTeam));
-            }
-            
-            _accessObject.toursContext.Foods.AddRange(teams);
-            _accessObject.toursContext.SaveChanges();
-            
+            var expFoods = createFoodList();
+            addEntities(expFoods);
+
             // Act
-            var result = _accessObject.foodRepository.FindByID(id);
-            
+            var actFoodBL = _accessObject.foodRepository.FindByID(foodID);
+            var actFood = new Food(actFoodBL);
+
             // Assert
-            Assert.Equal(id, result.Foodid);
-            
+            Assert.NotNull(actFood);
+            Assert.Equal(foodID, actFood.Foodid);
+
             Cleanup();
-
         }
-        
-        [Fact]
-        public void FindByCategory_Breakfast_NotNull()
+
+        void addEntities(List<Food> foods)
         {
-            // Arrange
-            const string name = "aboba";
-
-            List<Food> teams = new List<Food>();
-            for (var i = 1; i < 4; i++)
-            {
-                var curTeam = new FoodBuilder().WhereFoodID(i).WhereCategory(name).Build();
-                teams.Add(new Food(curTeam));
-            }
-            
-            _accessObject.toursContext.Foods.AddRange(teams);
-            _accessObject.toursContext.SaveChanges();
-            
-            // Act
-            var result = _accessObject.foodRepository.FindFoodByCategory(name);
-            
-            // Assert
-            Assert.Equal(name, result[0].Category);
-            
-            Cleanup();
-
-        }
-        */
-
-        private void Cleanup()
-        {
-            _accessObject.toursContext.Foods.RemoveRange(_accessObject.toursContext.Foods);
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Foods.AddRange(foods);
             _accessObject.toursContext.SaveChanges();
         }
 
@@ -147,6 +106,13 @@ namespace ToursTests.IntegrationTests
                     expFood.Menu == actFood.Menu &&
                     expFood.Bar == actFood.Bar &&
                     expFood.Cost == actFood.Cost);
+        }
+        
+        private void Cleanup()
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Foods.RemoveRange(_accessObject.toursContext.Foods);
+            _accessObject.toursContext.SaveChanges();
         }
     }
 }
