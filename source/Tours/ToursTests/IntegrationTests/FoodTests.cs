@@ -35,6 +35,30 @@ namespace ToursTests.IntegrationTests
             Cleanup();
         }
 
+        [Fact]
+        public void FindByID_FirstElement_NotNull()
+        {
+            const int foodID = 1;
+            
+            // Arrange
+            var foodB = new FoodBuilder()
+                    .WhereFoodID(foodID)
+                    .Build();
+            var expFood = new Food(foodB);
+            _accessObject.toursContext.Foods.Add(expFood);
+            _accessObject.toursContext.SaveChanges();
+            
+            // Act
+            var actFoodBL = _accessObject.foodRepository.FindByID(foodID);
+            var actFood = new Food(actFoodBL);
+
+            // Assert
+            Assert.NotNull(actFood);
+            Assert.True(areEqual(expFood, actFood));
+
+            Cleanup();
+        }
+
         private void Cleanup()
         {
             _accessObject.toursContext.Foods.RemoveRange(_accessObject.toursContext.Foods);
@@ -72,15 +96,19 @@ namespace ToursTests.IntegrationTests
             bool equal = true;
             for (int i = 0; i < expFoods.Count && equal; i++)
             {
-                if (expFoods[i].Foodid != actFoods[i].Foodid ||
-                    expFoods[i].Category != actFoods[i].Category ||
-                    expFoods[i].Menu != actFoods[i].Menu ||
-                    expFoods[i].Bar != actFoods[i].Bar ||
-                    expFoods[i].Cost != actFoods[i].Cost)
-                    equal = false;
+                equal = areEqual(expFoods[i], actFoods[i]);
             }
             
             return equal;
+        }
+        
+        bool areEqual(Food expFood, Food actFood)
+        {
+            return (expFood.Foodid == actFood.Foodid &&
+                    expFood.Category == actFood.Category &&
+                    expFood.Menu == actFood.Menu &&
+                    expFood.Bar == actFood.Bar &&
+                    expFood.Cost == actFood.Cost);
         }
     }
 }
