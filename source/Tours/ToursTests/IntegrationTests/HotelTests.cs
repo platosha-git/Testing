@@ -62,7 +62,7 @@ namespace ToursTests.IntegrationTests
             _accessObject.toursContext.SaveChanges();
         }
 
-        [Fact]
+        /*[Fact]
         public void FindByCity_London_NotNull()
         {
             const string city = "London";
@@ -92,6 +92,7 @@ namespace ToursTests.IntegrationTests
             _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
             _accessObject.toursContext.SaveChanges();
         }
+        */
 
         private List<Hotel> createHotelList()
         {

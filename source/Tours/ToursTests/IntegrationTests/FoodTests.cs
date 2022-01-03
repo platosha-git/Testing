@@ -15,7 +15,7 @@ namespace ToursTests.IntegrationTests
             _accessObject = tourAccessObject;
         }
 
-        [Fact]
+        /*[Fact]
         public void FindAll_NotNull()
         {
             // Arrange
@@ -43,7 +43,7 @@ namespace ToursTests.IntegrationTests
 
         }
 
-        /*[Fact]
+        [Fact]
         public void FindByID_FirstElement_NotNull()
         {
             // Arrange
