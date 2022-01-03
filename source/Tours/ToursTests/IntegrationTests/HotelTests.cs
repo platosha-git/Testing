@@ -20,10 +20,8 @@ namespace ToursTests.IntegrationTests
         {
             // Arrange
             var expHotels = createHotelList();
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.AddRange(expHotels);
-            _accessObject.toursContext.SaveChanges();
-            
+            addEntities(expHotels);
+
             // Act
             var actHotelsBL = _accessObject.hotelRepository.FindAll();
             var actHotels = getHotelList(actHotelsBL);
@@ -33,9 +31,7 @@ namespace ToursTests.IntegrationTests
             Assert.Equal(expHotels.Count, actHotels.Count);
             Assert.True(areEqual(expHotels, actHotels));
 
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
-            _accessObject.toursContext.SaveChanges();
+            Cleanup();
         }
 
         [Fact]
@@ -45,10 +41,8 @@ namespace ToursTests.IntegrationTests
             
             // Arrange
             var expHotels = createHotelList();
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.AddRange(expHotels);
-            _accessObject.toursContext.SaveChanges();
-            
+            addEntities(expHotels);
+
             // Act
             var actHotelBL = _accessObject.hotelRepository.FindByID(hotelID);
             var actHotel = new Hotel(actHotelBL);
@@ -57,42 +51,8 @@ namespace ToursTests.IntegrationTests
             Assert.NotNull(actHotel);
             Assert.Equal(hotelID, actHotel.Hotelid);
 
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
-            _accessObject.toursContext.SaveChanges();
+            Cleanup();
         }
-
-        /*[Fact]
-        public void FindByCity_London_NotNull()
-        {
-            const string city = "London";
-            
-            // Arrange
-            var expHotels = new List<Hotel>();
-            for (var i = 1; i < 5; i++)
-            {
-                var curHotelBL = new HotelBuilder().WhereHotelID(i).WhereCity(city).Build();
-                var curHotel = new Hotel(curHotelBL);
-                expHotels.Add(curHotel);
-            }
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.AddRange(expHotels);
-            _accessObject.toursContext.SaveChanges();
-            
-            // Act
-            var actHotelsBL = _accessObject.hotelRepository.FindHotelsByCity(city);
-            var actHotels = getHotelList(actHotelsBL);
-
-            // Assert
-            Assert.NotNull(actHotels);
-            Assert.Equal(actHotels.Count, actHotels.Count);
-            Assert.True(areEqual(actHotels, actHotels));
-
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
-            _accessObject.toursContext.SaveChanges();
-        }
-        */
 
         private List<Hotel> createHotelList()
         {
@@ -105,8 +65,15 @@ namespace ToursTests.IntegrationTests
                 var curHotel = new Hotel(curHotelB);
                 hotels.Add(curHotel);
             }
-
+            
             return hotels;
+        }
+
+        void addEntities(List<Hotel> hotels)
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Hotels.AddRange(hotels);
+            _accessObject.toursContext.SaveChanges();
         }
 
         private List<Hotel> getHotelList(List<HotelBL> hotelsBL)
@@ -140,6 +107,13 @@ namespace ToursTests.IntegrationTests
                     expHotel.Name == actHotel.Name &&
                     expHotel.Swimpool == actHotel.Swimpool &&
                     expHotel.Type == actHotel.Type);
+        }
+
+        void Cleanup()
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
+            _accessObject.toursContext.SaveChanges();
         }
     }
 }
