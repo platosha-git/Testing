@@ -16,7 +16,7 @@ namespace ToursTests.TestsBL
         private ITransferRepository mockT = new Mock<ITransferRepository>().Object;
         
         [Fact]
-        public void FindAll()
+        public void FindAll_NotNull()
         {
             var expTour = new TourBuilder().Build();
             var expTours = new List<TourBL>() {expTour};
@@ -33,7 +33,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByID()
+        public void FindByID_First_NotNull()
         {
             const int tourID = 1;
             
@@ -53,7 +53,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByDate()
+        public void FindByDate_NotNull()
         {
             var dateB = new DateTime(2022, 11, 09);
             var dateE = new DateTime(2022, 12, 31);

@@ -12,7 +12,7 @@ namespace ToursTests.TestsBL
     public class TransferTests
     {
         [Fact]
-        public void FindAll()
+        public void FindAll_NotNull()
         {
             var expTransfer = new TransferBuilder().Build();
             var expTransfers = new List<TransferBL>() {expTransfer};

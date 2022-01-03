@@ -11,7 +11,7 @@ namespace ToursTests.TestsBL
     public class HotelBLTests
     {
         [Fact]
-        public void FindAll()
+        public void FindAll_NotNull()
         {
             var expHotel = new HotelBuilder().Build();
             var expHotels = new List<HotelBL>() {expHotel};
@@ -28,7 +28,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByID()
+        public void FindByID_First_NotNull()
         {
             const int hotelID = 1;
             
@@ -48,7 +48,7 @@ namespace ToursTests.TestsBL
         }
 
         [Fact]
-        public void FindByCity()
+        public void FindByCity_London_NotNull()
         {
             const string city = "London";
             
@@ -70,7 +70,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByType()
+        public void FindByType_Hotel_NotNull()
         {
             const string type = "Hotel";
             
@@ -92,7 +92,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByClass()
+        public void FindByClass_Five_NotNull()
         {
             const int cls = 5;
             
@@ -114,7 +114,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindBySwimPool()
+        public void FindBySwimPool_True_NotNull()
         {
             const bool sp = true;
             

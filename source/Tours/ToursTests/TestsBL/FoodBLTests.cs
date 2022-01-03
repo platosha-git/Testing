@@ -11,7 +11,7 @@ namespace ToursTests.TestsBL
     public class FoodBLTests
     {
         [Fact]
-        public void FindAll()
+        public void FindAll_NotNull()
         {
             var expFood = new FoodBuilder().Build();
             var expFoods = new List<FoodBL>() {expFood};
@@ -28,7 +28,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByID()
+        public void FindByID_FirstElement_NotNull()
         {
             const int foodID = 1;
             
@@ -48,7 +48,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByCategory()
+        public void FindByCategory_Breakfast_NotNull()
         {
             const string category = "Breakfast";
 
@@ -70,7 +70,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByMenu()
+        public void FindByMenu_Vegeterian_NotNull()
         {
             const string menu = "Vegeterian";
             
@@ -91,7 +91,7 @@ namespace ToursTests.TestsBL
         }
         
         [Fact]
-        public void FindByBar()
+        public void FindByBar_True_NotNull()
         {
             const bool bar = true;
             
