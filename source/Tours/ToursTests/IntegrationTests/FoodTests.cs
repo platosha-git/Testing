@@ -29,7 +29,6 @@ namespace ToursTests.IntegrationTests
             // Assert
             Assert.NotNull(actFoods);
             Assert.Equal(expFoods.Count, actFoods.Count);
-            Assert.True(areEqual(expFoods, actFoods));
 
             Cleanup();
         }
