@@ -7,9 +7,9 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.TestsBL
+namespace ToursTests.UnitTests
 {
-    public class TourBLTests
+    public class TourTests
     {
         private IHotelRepository mockH = new Mock<IHotelRepository>().Object;
         private IFoodRepository mockF = new Mock<IFoodRepository>().Object;

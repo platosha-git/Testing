@@ -6,9 +6,9 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.TestsBL
+namespace ToursTests.UnitTests
 {
-    public class UserBLTests
+    public class UserTests
     {
         [Fact]
         public void FindAll()

@@ -6,9 +6,9 @@ using ToursWeb.ModelsBL;
 using Xunit;
 using Moq;
 
-namespace ToursTests.TestsBL
+namespace ToursTests.UnitTests
 {
-    public class FoodBLTests
+    public class FoodTests
     {
         [Fact]
         public void FindAll_NotNull()
