@@ -24,5 +24,5 @@ jobs:
       run: dotnet build --no-restore
       working-directory: source/Tours/ToursTests
     - name: Unit Tests
-      run: dotnet test ToursTests/TestsBL --filter ClassName=ToursTests.UnitTests --no-build --verbosity normal
+      run: dotnet test ToursTests/UnitTests --filter ClassName=ToursTests.UnitTests --no-build --verbosity normal
       working-directory: source/Tours/ToursTests
