@@ -18,7 +18,7 @@ namespace ToursTests
         public TourAccessObject()
         {
             var builder = new DbContextOptionsBuilder<ToursContext>();
-            builder.UseInMemoryDatabase("Tours");
+            builder.UseInMemoryDatabase("ToursDB");
 
             toursContext = new ToursContext(builder.Options);
             

@@ -11,7 +11,13 @@ namespace ToursTests.Builders
         private DateTime? Departuretime;
         private int? Cost;
 
-        public TransferBuilder() { }
+        public TransferBuilder()
+        {
+            Type = TType.Bus;
+            Cityfrom = String.Empty;
+            Departuretime = null;
+            Cost = 0;
+        }
 
         public TransferBL Build()
         {

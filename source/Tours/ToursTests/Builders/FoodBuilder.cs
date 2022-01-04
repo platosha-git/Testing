@@ -11,7 +11,14 @@ namespace ToursTests.Builders
         private bool? Bar;
         private int Cost;
 
-        public FoodBuilder() { }
+        public FoodBuilder()
+        {
+            Foodid = 0;
+            Category = String.Empty;
+            Menu = null;
+            Bar = null;
+            Cost = 0;
+        }
 
         public FoodBL Build()
         {

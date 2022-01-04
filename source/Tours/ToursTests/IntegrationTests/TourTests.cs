@@ -28,7 +28,6 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actTours);
-            Assert.Equal(expTours.Count, actTours.Count);
 
             Cleanup();
         }

@@ -1,3 +1,4 @@
+using System;
 using ToursWeb.ModelsBL;
 
 namespace ToursTests.Builders
@@ -12,7 +13,15 @@ namespace ToursTests.Builders
         private string City;
         private int Cost;
 
-        public HotelBuilder() { }
+        public HotelBuilder()
+        {
+            Name = String.Empty;
+            Type = String.Empty;
+            Class = null;
+            Swimpool = null;
+            City = String.Empty;
+            Cost = 0;
+        }
 
         public HotelBL Build()
         {

@@ -13,7 +13,13 @@ namespace ToursTests.Builders
         private DateTime Datebegin;
         private DateTime Dateend;
 
-        public TourBuilder() { }
+        public TourBuilder()
+        {
+            Food = 0;
+            Hotel = 0;
+            Transfer = 0;
+            Cost = 0;
+        }
 
         public TourBL Build()
         {
@@ -25,7 +31,7 @@ namespace ToursTests.Builders
                 Transfer = Transfer,
                 Cost = Cost,
                 Datebegin = Datebegin,
-                Dateend = Datebegin
+                Dateend = Dateend
             };
 
             return tour;
@@ -34,6 +40,12 @@ namespace ToursTests.Builders
         public TourBuilder WhereTourID(int tourID)
         {
             Tourid = tourID;
+            return this;
+        }
+        
+        public TourBuilder WhereFood(int foodID)
+        {
+            Food = foodID;
             return this;
         }
         

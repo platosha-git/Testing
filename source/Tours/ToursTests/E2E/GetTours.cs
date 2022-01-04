@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using ToursWeb.ModelsBL;
 using ToursWeb.ModelsDB;
 using ToursTests.Builders;
-using ToursTests;
 using Xunit;
 
 namespace ToursTests.E2E
@@ -19,22 +18,24 @@ namespace ToursTests.E2E
         [Fact]
         public void GetToursRepeat()
         {
-            GetFullTour();
+            for (int i = 0; i < 100; i++)
+            {
+                GetFullTour();
+            }
         }
 
         public void GetFullTour()
         {
             //Arrange
             List<Tour> tours = new List<Tour>();
-            for (var i = 1; i < 5; i++)
+            for (var i = 5; i < 10; i++)
             {
-                var curTourBL = new TourBuilder().WhereTourID(i).Build();
+                var curTourBL = new TourBuilder().WhereTourID(i).WhereFood(i).Build();
                 var curTour = new Tour(curTourBL);
                 tours.Add(curTour);
             }
-            
             _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Tours.AddRange();
+            _accessObject.toursContext.Tours.AddRange(tours);
             _accessObject.toursContext.SaveChanges();
             
             //Act
@@ -42,7 +43,47 @@ namespace ToursTests.E2E
             
             //Assert
             Assert.NotNull(allTours);
+
+            //Arrange
+            List<Food> foods = new List<Food>();
+            for (var i = 5; i < 10; i++)
+            {
+                var curFoodBL = new FoodBuilder().WhereFoodID(i).Build();
+                var curFood = new Food(curFoodBL);
+                foods.Add(curFood);
+            }
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Foods.AddRange(foods);
+            _accessObject.toursContext.SaveChanges();
             
+            //Act
+            var allFoodsWithBar = new List<FoodBL>();
+            foreach (var tour in allTours)
+            {
+                var curFoodBL = _accessObject.foodRepository.FindByID(tour.Food);
+                if (curFoodBL.Bar == true)
+                {
+                    allFoodsWithBar.Add(curFoodBL);
+                    curFoodBL.Cost = 100;
+                    _accessObject.foodRepository.Update(curFoodBL);
+                }
+            }
+            
+            //Assert
+            foreach (var food in allFoodsWithBar)
+            {
+                Assert.NotEqual(0, food.Cost);
+            }
+            
+            Cleanup();
+        }
+        
+        private void Cleanup()
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Tours.RemoveRange(_accessObject.toursContext.Tours);
+            _accessObject.toursContext.Foods.RemoveRange(_accessObject.toursContext.Foods);
+            _accessObject.toursContext.SaveChanges();
         }
     }
-}
+}        
