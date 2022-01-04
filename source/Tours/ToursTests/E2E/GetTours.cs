@@ -27,34 +27,18 @@ namespace ToursTests.E2E
         public void GetFullTour()
         {
             //Arrange
-            List<Tour> tours = new List<Tour>();
-            for (var i = 5; i < 10; i++)
-            {
-                var curTourBL = new TourBuilder().WhereTourID(i).WhereFood(i).Build();
-                var curTour = new Tour(curTourBL);
-                tours.Add(curTour);
-            }
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Tours.AddRange(tours);
-            _accessObject.toursContext.SaveChanges();
-            
+            var expTours = createTourList();
+            addEntities(expTours);
+
             //Act
             var allTours = _accessObject.tourRepository.FindAll();
             
             //Assert
             Assert.NotNull(allTours);
-
+            
             //Arrange
-            List<Food> foods = new List<Food>();
-            for (var i = 5; i < 10; i++)
-            {
-                var curFoodBL = new FoodBuilder().WhereFoodID(i).Build();
-                var curFood = new Food(curFoodBL);
-                foods.Add(curFood);
-            }
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Foods.AddRange(foods);
-            _accessObject.toursContext.SaveChanges();
+            var expFoods = createFoodList();
+            addEntities(expFoods);
             
             //Act
             var allFoodsWithBar = new List<FoodBL>();
@@ -78,6 +62,50 @@ namespace ToursTests.E2E
             Cleanup();
         }
         
+        private List<Food> createFoodList()
+        {
+            var foods = new List<Food>();
+            for (var i = 1; i < 5; i++)
+            {
+                var curFoodB = new FoodBuilder()
+                    .WhereFoodID(i)
+                    .Build();
+                var curFood = new Food(curFoodB);
+                foods.Add(curFood);
+            }
+            return foods;
+        }
+        
+        private List<Tour> createTourList()
+        {
+            var tours = new List<Tour>();
+            for (var i = 1; i < 5; i++)
+            {
+                var curTourBL = new TourBuilder()
+                    .WhereTourID(i)
+                    .WhereFood(5 - i)
+                    .Build();
+                var curTour = new Tour(curTourBL);
+                tours.Add(curTour);
+            }
+            
+            return tours;
+        }
+        
+        void addEntities(List<Food> foods)
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Foods.AddRange(foods);
+            _accessObject.toursContext.SaveChanges();
+        }
+
+        void addEntities(List<Tour> tours)
+        {
+            _accessObject.toursContext.ChangeTracker.Clear();
+            _accessObject.toursContext.Tours.AddRange(tours);
+            _accessObject.toursContext.SaveChanges();
+        }
+
         private void Cleanup()
         {
             _accessObject.toursContext.ChangeTracker.Clear();
