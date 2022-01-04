@@ -28,8 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actFoods);
-            Assert.Equal(expFoods.Count, actFoods.Count);
-            Assert.Equal(expFoods[0].Foodid, actFoods[3].Foodid);
+            Assert.True(areEqual(expFoods, actFoods));
 
             Cleanup();
         }
@@ -110,6 +109,27 @@ namespace ToursTests.IntegrationTests
                 foods.Add(food);
             }
             return foods;
+        }
+        
+        bool areEqual(List<Food> expFoods, List<Food> actFoods)
+        {
+            int size = actFoods.Count;
+            bool equal = true;
+            for (int i = 0; i < size && equal; i++)
+            {
+                equal = areEqual(expFoods[i], actFoods[size - 1 - i]);
+            }
+            
+            return equal;
+        }
+        
+        bool areEqual(Food expFood, Food actFood)
+        {
+            return (expFood.Foodid == actFood.Foodid &&
+                    expFood.Category == actFood.Category &&
+                    expFood.Menu == actFood.Menu &&
+                    expFood.Bar == actFood.Bar &&
+                    expFood.Cost == actFood.Cost);
         }
 
         private void Cleanup()

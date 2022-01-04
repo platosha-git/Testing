@@ -28,7 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actTransf);
-            Assert.Equal(expTransf.Count, actTransf.Count);
+            Assert.True(areEqual(expTransf, actTransf));
 
             Cleanup();
         }
@@ -113,10 +113,11 @@ namespace ToursTests.IntegrationTests
 
         bool areEqual(List<Transfer> expTransf, List<Transfer> actTransf)
         {
+            int size = actTransf.Count;
             bool equal = true;
-            for (int i = 1; i < expTransf.Count && equal; i++)
+            for (int i = 0; i < size && equal; i++)
             {
-                equal = areEqual(expTransf[i], actTransf[i]);
+                equal = areEqual(expTransf[i], actTransf[size - 1 - i]);
             }
             
             return equal;

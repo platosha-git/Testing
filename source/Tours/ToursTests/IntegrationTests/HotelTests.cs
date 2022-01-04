@@ -28,7 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actHotels);
-            Assert.Equal(expHotels.Count, actHotels.Count);
+            Assert.True(areEqual(expHotels, actHotels));
 
             Cleanup();
         }
@@ -113,10 +113,11 @@ namespace ToursTests.IntegrationTests
 
         bool areEqual(List<Hotel> expHotels, List<Hotel> actHotels)
         {
+            int size = actHotels.Count;
             bool equal = true;
-            for (int i = 1; i < expHotels.Count && equal; i++)
+            for (int i = 0; i < size && equal; i++)
             {
-                equal = areEqual(expHotels[i], actHotels[i]);
+                equal = areEqual(expHotels[i], actHotels[size - 1 - i]);
             }
             
             return equal;

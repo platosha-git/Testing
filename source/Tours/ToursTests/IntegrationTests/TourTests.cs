@@ -29,6 +29,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actTours);
+            Assert.True(areEqual(expTours, actTours));
 
             Cleanup();
         }
@@ -114,10 +115,11 @@ namespace ToursTests.IntegrationTests
 
         bool areEqual(List<Tour> expTours, List<Tour> actTours)
         {
+            int size = actTours.Count;
             bool equal = true;
-            for (int i = 1; i < expTours.Count && equal; i++)
+            for (int i = 0; i < size && equal; i++)
             {
-                equal = areEqual(expTours[i], actTours[i]);
+                equal = areEqual(expTours[i], actTours[size - 1 - i]);
             }
             
             return equal;
