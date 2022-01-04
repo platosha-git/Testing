@@ -10,9 +10,9 @@ namespace ToursTests.IntegrationTests
     {
         private readonly TourAccessObject _accessObject;
 
-        public FoodTests(TourAccessObject tourAccessObject) 
+        public FoodTests() 
         {
-            _accessObject = tourAccessObject;
+            _accessObject = new TourAccessObject();
         }
 
         [Fact]
@@ -29,7 +29,6 @@ namespace ToursTests.IntegrationTests
             // Assert
             Assert.NotNull(actFoods);
             //Assert.Equal(expFoods.Count, actFoods.Count);
-            //Assert.True(areEqual(expFoods, actFoods));
 
             Cleanup();
         }

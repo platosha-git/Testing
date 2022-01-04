@@ -10,9 +10,9 @@ namespace ToursTests.IntegrationTests
     {
         private readonly TourAccessObject _accessObject;
 
-        public HotelTests(TourAccessObject tourAccessObject) 
+        public HotelTests() 
         {
-            _accessObject = tourAccessObject;
+            _accessObject = new TourAccessObject();
         }
 
         [Fact]

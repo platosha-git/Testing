@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging.Abstractions;
 using ToursWeb.ModelsDB;
 
-namespace ToursTests.IntegrationTests
+namespace ToursTests
 {
     public class TourAccessObject : IDisposable
     {

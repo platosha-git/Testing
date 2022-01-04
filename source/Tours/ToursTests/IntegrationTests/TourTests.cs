@@ -10,9 +10,9 @@ namespace ToursTests.IntegrationTests
     {
         private readonly TourAccessObject _accessObject;
 
-        public TourTests(TourAccessObject tourAccessObject) 
+        public TourTests() 
         {
-            _accessObject = tourAccessObject;
+            _accessObject = new TourAccessObject();
         }
 
         [Fact]
@@ -28,8 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actTours);
-            //Assert.Equal(expTours.Count, actTours.Count);
-            //Assert.True(areEqual(expTours, actTours));
+            Assert.Equal(expTours.Count, actTours.Count);
 
             Cleanup();
         }
