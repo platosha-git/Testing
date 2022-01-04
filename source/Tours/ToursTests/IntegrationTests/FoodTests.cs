@@ -28,6 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actFoods);
+            Assert.Equal(actFoods.Count, expFoods.Count);
 
             Cleanup();
         }
@@ -86,7 +87,7 @@ namespace ToursTests.IntegrationTests
             return foods;
         }
 
-        bool areEqual(List<Food> expFoods, List<Food> actFoods)
+        bool areEqual(List<Food> actFoods, List<Food> expFoods)
         {
             bool equal = true;
             for (int i = 1; i < expFoods.Count && equal; i++)
