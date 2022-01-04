@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using ToursWeb.Repositories;
 using Microsoft.Extensions.Logging;
 using ToursWeb.ModelsDB;
@@ -38,7 +39,7 @@ namespace ToursWeb.ImpRepositories
 
         public List<TransferBL> FindAll()
         {
-            List<Transfer> transfers = _db.Transfers.ToList();
+            List<Transfer> transfers = _db.Transfers.AsNoTracking().ToList();
             List<TransferBL> transfersBL = ListTransferBL(transfers);
             return transfersBL;
         }

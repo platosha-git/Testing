@@ -39,7 +39,7 @@ namespace ToursWeb.ImpRepositories
         
         public List<FoodBL> FindAll()
         {
-            List<Food> foods = _db.Foods.ToList();
+            List<Food> foods = _db.Foods.AsNoTracking().ToList();
             List<FoodBL> foodsBL = ListFoodBL(foods);
             return foodsBL;
         }

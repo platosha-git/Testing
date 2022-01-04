@@ -90,7 +90,7 @@ namespace ToursTests.IntegrationTests
         bool areEqual(List<Transfer> expTransf, List<Transfer> actTransf)
         {
             bool equal = true;
-            for (int i = 0; i < expTransf.Count && equal; i++)
+            for (int i = 1; i < expTransf.Count && equal; i++)
             {
                 equal = areEqual(expTransf[i], actTransf[i]);
             }
