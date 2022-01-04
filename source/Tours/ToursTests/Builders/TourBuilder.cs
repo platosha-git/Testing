@@ -49,6 +49,12 @@ namespace ToursTests.Builders
             return this;
         }
         
+        public TourBuilder WhereHotel(int hotelID)
+        {
+            Hotel = hotelID;
+            return this;
+        }
+        
         public TourBuilder WhereDateBegin(DateTime dateB)
         {
             Datebegin = dateB;
