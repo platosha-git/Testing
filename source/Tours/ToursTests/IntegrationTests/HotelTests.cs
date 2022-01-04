@@ -28,7 +28,6 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actHotels);
-            //Assert.Equal(expHotels.Count, actHotels.Count);
 
             Cleanup();
         }
@@ -60,15 +59,13 @@ namespace ToursTests.IntegrationTests
             
             // Arrange
             var expHotels = new List<Hotel>();
-            for (var i = 1; i < 5; i++)
+            for (var i = 5; i < 10; i++)
             {
                 var curHotelB = new HotelBuilder().WhereHotelID(i).WhereCity(city).Build();
                 var curHotel = new Hotel(curHotelB);
                 expHotels.Add(curHotel);
             }
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.AddRange(expHotels);
-            _accessObject.toursContext.SaveChanges();
+            addEntities(expHotels);
 
             // Act
             var actHotelsBL = _accessObject.hotelRepository.FindHotelsByCity(city);

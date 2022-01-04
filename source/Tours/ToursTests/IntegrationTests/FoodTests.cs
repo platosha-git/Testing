@@ -28,7 +28,6 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actFoods);
-            Assert.Equal(actFoods.Count, expFoods.Count);
 
             Cleanup();
         }
@@ -52,6 +51,31 @@ namespace ToursTests.IntegrationTests
 
             Cleanup();
         }
+        
+        [Fact]
+        public void FindByCategory_Breakfast_NotNull()
+        {
+            const string category = "Breakfast";
+            
+            // Arrange
+            var expFoods = new List<Food>();
+            for (var i = 5; i < 10; i++)
+            {
+                var curFoodB = new FoodBuilder().WhereFoodID(i).WhereCategory(category).Build();
+                var curFood = new Food(curFoodB);
+                expFoods.Add(curFood);
+            }
+            addEntities(expFoods);
+
+            // Act
+            var actFoodBL = _accessObject.foodRepository.FindFoodByCategory(category);
+            var actFoods = getFoodList(actFoodBL);
+
+            // Assert
+            Assert.NotNull(actFoods);
+
+            Cleanup();
+        }
 
         void addEntities(List<Food> foods)
         {
@@ -60,14 +84,13 @@ namespace ToursTests.IntegrationTests
             _accessObject.toursContext.SaveChanges();
         }
 
-        private List<Food> createFoodList(string category = null)
+        private List<Food> createFoodList()
         {
             var foods = new List<Food>();
             for (var i = 1; i < 5; i++)
             {
                 var curFoodB = new FoodBuilder()
                     .WhereFoodID(i)
-                    .WhereCategory(category)
                     .Build();
                 var curFood = new Food(curFoodB);
                 foods.Add(curFood);
@@ -87,26 +110,6 @@ namespace ToursTests.IntegrationTests
             return foods;
         }
 
-        bool areEqual(List<Food> actFoods, List<Food> expFoods)
-        {
-            bool equal = true;
-            for (int i = 1; i < expFoods.Count && equal; i++)
-            {
-                equal = areEqual(expFoods[i], actFoods[i]);
-            }
-            
-            return equal;
-        }
-        
-        bool areEqual(Food expFood, Food actFood)
-        {
-            return (expFood.Foodid == actFood.Foodid &&
-                    expFood.Category == actFood.Category &&
-                    expFood.Menu == actFood.Menu &&
-                    expFood.Bar == actFood.Bar &&
-                    expFood.Cost == actFood.Cost);
-        }
-        
         private void Cleanup()
         {
             _accessObject.toursContext.ChangeTracker.Clear();

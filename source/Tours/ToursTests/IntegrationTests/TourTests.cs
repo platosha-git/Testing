@@ -1,3 +1,4 @@
+using System;
 using Xunit;
 using ToursWeb.ModelsDB;
 using ToursWeb.ModelsBL;
@@ -48,6 +49,32 @@ namespace ToursTests.IntegrationTests
             // Assert
             Assert.NotNull(actTour);
             Assert.Equal(tourID, actTour.Tourid);
+
+            Cleanup();
+        }
+        
+        [Fact]
+        public void FindByDate_NotNull()
+        {
+            var dateB = new DateTime(2022, 11, 09);
+            var dateE = new DateTime(2022, 12, 31);
+            
+            // Arrange
+            var expTours = new List<Tour>();
+            for (var i = 5; i < 10; i++)
+            {
+                var curTourBL = new TourBuilder().WhereTourID(i).WhereDateBegin(dateB).WhereDateEnd(dateE).Build();
+                var curTour = new Tour(curTourBL);
+                expTours.Add(curTour);
+            }
+            addEntities(expTours);
+
+            // Act
+            var actToursBL = _accessObject.tourRepository.FindToursByDate(dateB, dateE);
+            var actTours = getTourList(actToursBL);
+
+            // Assert
+            Assert.NotNull(actTours);
 
             Cleanup();
         }

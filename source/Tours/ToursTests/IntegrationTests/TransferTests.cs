@@ -51,6 +51,31 @@ namespace ToursTests.IntegrationTests
 
             Cleanup();
         }
+        
+        [Fact]
+        public void FindByType()
+        {
+            const string type = "Bus";
+            
+            // Arrange
+            var expTransf = new List<Transfer>();
+            for (var i = 5; i < 10; i++)
+            {
+                var curTransferBL = new TransferBuilder().WhereTransferID(i).WhereType(type).Build();
+                var curTransfer = new Transfer(curTransferBL);
+                expTransf.Add(curTransfer);
+            }
+            addEntities(expTransf);
+
+            // Act
+            var actTransfBL = _accessObject.transferRepository.FindTransferByType(type);
+            var actTransf = getTransfList(actTransfBL);
+
+            // Assert
+            Assert.NotNull(actTransf);
+
+            Cleanup();
+        }
 
         private List<Transfer> createTransfList()
         {
