@@ -29,3 +29,6 @@ jobs:
     - name: Integration Tests
       run: dotnet test --filter FullyQualifiedName~IntegrationTests
       working-directory: source/Tours/ToursTests
+    - name: E2E
+      run: dotnet test --filter FullyQualifiedName~E2E
+      working-directory: source/Tours/ToursTests
