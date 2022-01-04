@@ -18,8 +18,17 @@ jobs:
       with:
         dotnet-version: 5.0.x
     - name: Restore dependencies
-      run: dotnet restore ./source/Tours/ToursTests
+      run: dotnet restore
+      working-directory: source
     - name: Build
-      run: dotnet build ./source/Tours/ToursTests/ToursTests.csproj
-    - name: Test
-      run: dotnet test ./source/Tours/ToursTests/ToursTests.csproj
+      run: dotnet build --no-restore
+      working-directory: source
+    - name: Unit Tests
+      run: dotnet test ToursTests/TestsBL --no-build --verbosity normal
+      working-directory: source
+    - name: Integration Tests
+      run: dotnet test ToursTests/IntegrationTests --no-build --verbosity normal
+      working-directory: source
+    - name: E2E Tests
+      run: dotnet test ToursTests/E2E --no-build --verbosity normal
+      working-directory: source
