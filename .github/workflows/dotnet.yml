@@ -24,11 +24,5 @@ jobs:
       run: dotnet build --no-restore
       working-directory: source/Tours/ToursTests
     - name: Unit Tests
-      run: dotnet test ToursTests/TestsBL --no-build --verbosity normal
-      working-directory: source/Tours/ToursTests
-    - name: Integration Tests
-      run: dotnet test ToursTests/IntegrationTests --no-build --verbosity normal
-      working-directory: source/Tours/ToursTests
-    - name: E2E Tests
-      run: dotnet test ToursTests/E2E --no-build --verbosity normal
+      run: dotnet test ToursTests/TestsBL --filter ClassName=ToursTests.UnitTests --no-build --verbosity normal
       working-directory: source/Tours/ToursTests
