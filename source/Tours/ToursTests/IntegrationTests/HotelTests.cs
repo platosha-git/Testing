@@ -28,6 +28,7 @@ namespace ToursTests.IntegrationTests
 
             // Assert
             Assert.NotNull(actHotels);
+            Assert.Equal(expHotels.Count, actHotels.Count);
 
             Cleanup();
         }
