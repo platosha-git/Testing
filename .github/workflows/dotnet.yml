@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-  
+
     runs-on: ubuntu-latest
 
     steps:
@@ -17,29 +17,35 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-        
+
     - name: Restore dependencies
       run: dotnet restore
       working-directory: source/Tours/ToursTests
-      
+
     - name: Build
       run: dotnet build --no-restore
       working-directory: source/Tours/ToursTests
 
   unit_tests:
     needs: build
-    name: Unit Tests
-    run: dotnet test --filter FullyQualifiedName~UnitTests
-    working-directory: source/Tours/ToursTests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Unit Tests
+      run: dotnet test --filter FullyQualifiedName~UnitTests
+      working-directory: source/Tours/ToursTests
 
   integration_tests:
     needs: build
-    name: Integration Tests
-    run: dotnet test --filter FullyQualifiedName~IntegrationTests
-    working-directory: source/Tours/ToursTests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Integration Tests
+      run: dotnet test --filter FullyQualifiedName~IntegrationTests
+      working-directory: source/Tours/ToursTests
 
   e2e_tests:
     needs: build
-    name: E2E
-    run: dotnet test --filter FullyQualifiedName~E2E
-    working-directory: source/Tours/ToursTests
+    steps:
+    - uses: actions/checkout@v2
+    - name: E2E
+      run: dotnet test --filter FullyQualifiedName~E2E
+      working-directory: source/Tours/ToursTests
