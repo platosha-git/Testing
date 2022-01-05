@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace ToursTests.IntegrationTests
 {
+    [Collection("Integration")]
     public class HotelTests : IClassFixture<TourAccessObject>
     {
         [Fact]
