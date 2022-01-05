@@ -25,25 +25,21 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       working-directory: source/Tours/ToursTests
-    
-  Tests:
-    runs-on: ubuntu-latest
+
+  unit_tests:
     needs: build
-    steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 5.0.x
-    
-    steps:
-    - name: Unit Tests
-      run: dotnet test --filter FullyQualifiedName~UnitTests
-      working-directory: source/Tours/ToursTests
-      
-    - name: Integration Tests
-      run: dotnet test --filter FullyQualifiedName~IntegrationTests
-      working-directory: source/Tours/ToursTests
-      
-    - name: E2E
-      run: dotnet test --filter FullyQualifiedName~E2E
-      working-directory: source/Tours/ToursTests
+    name: Unit Tests
+    run: dotnet test --filter FullyQualifiedName~UnitTests
+    working-directory: source/Tours/ToursTests
+
+  integration_tests:
+    needs: build
+    name: Integration Tests
+    run: dotnet test --filter FullyQualifiedName~IntegrationTests
+    working-directory: source/Tours/ToursTests
+
+  e2e_tests:
+    needs: build
+    name: E2E
+    run: dotnet test --filter FullyQualifiedName~E2E
+    working-directory: source/Tours/ToursTests
