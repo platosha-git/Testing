@@ -8,29 +8,24 @@ namespace ToursTests.IntegrationTests
 {
     public class FoodTests : IClassFixture<TourAccessObject>
     {
-        private readonly TourAccessObject _accessObject;
-
-        public FoodTests() 
-        {
-            _accessObject = new TourAccessObject();
-        }
-
         [Fact]
         public void FindAll_NotNull()
         {
             // Arrange
+            var accessObject = new TourAccessObject();
             var expFoods = createFoodList();
-            addEntities(expFoods);
+            addEntities(accessObject, expFoods);
 
             // Act
-            var actFoodBL = _accessObject.foodRepository.FindAll();
+            var actFoodBL = accessObject.foodRepository.FindAll();
             var actFoods = getFoodList(actFoodBL);
 
             // Assert
             Assert.NotNull(actFoods);
+            Assert.Equal(expFoods.Count, actFoods.Count);
             Assert.True(areEqual(expFoods, actFoods));
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         [Fact]
@@ -39,18 +34,19 @@ namespace ToursTests.IntegrationTests
             const int foodID = 1;
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expFoods = createFoodList();
-            addEntities(expFoods);
+            addEntities(accessObject, expFoods);
 
             // Act
-            var actFoodBL = _accessObject.foodRepository.FindByID(foodID);
+            var actFoodBL = accessObject.foodRepository.FindByID(foodID);
             var actFood = new Food(actFoodBL);
 
             // Assert
             Assert.NotNull(actFood);
             Assert.Equal(foodID, actFood.Foodid);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
         
         [Fact]
@@ -59,6 +55,7 @@ namespace ToursTests.IntegrationTests
             const string category = "Breakfast";
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expFoods = new List<Food>();
             for (var i = 5; i < 10; i++)
             {
@@ -66,23 +63,23 @@ namespace ToursTests.IntegrationTests
                 var curFood = new Food(curFoodB);
                 expFoods.Add(curFood);
             }
-            addEntities(expFoods);
+            addEntities(accessObject, expFoods);
 
             // Act
-            var actFoodBL = _accessObject.foodRepository.FindFoodByCategory(category);
+            var actFoodBL = accessObject.foodRepository.FindFoodByCategory(category);
             var actFoods = getFoodList(actFoodBL);
 
             // Assert
             Assert.NotNull(actFoods);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
-        void addEntities(List<Food> foods)
+        void addEntities(TourAccessObject accessObject, List<Food> foods)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Foods.AddRange(foods);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Foods.AddRange(foods);
+            accessObject.toursContext.SaveChanges();
         }
 
         private List<Food> createFoodList()
@@ -132,11 +129,11 @@ namespace ToursTests.IntegrationTests
                     expFood.Cost == actFood.Cost);
         }
 
-        private void Cleanup()
+        private void Cleanup(TourAccessObject accessObject)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Foods.RemoveRange(_accessObject.toursContext.Foods);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Foods.RemoveRange(accessObject.toursContext.Foods);
+            accessObject.toursContext.SaveChanges();
         }
     }
 }
