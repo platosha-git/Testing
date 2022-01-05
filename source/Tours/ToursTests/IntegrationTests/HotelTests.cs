@@ -8,29 +8,24 @@ namespace ToursTests.IntegrationTests
 {
     public class HotelTests : IClassFixture<TourAccessObject>
     {
-        private readonly TourAccessObject _accessObject;
-
-        public HotelTests() 
-        {
-            _accessObject = new TourAccessObject();
-        }
-
         [Fact]
         public void FindAll_NotNull()
         {
             // Arrange
+            var accessObject = new TourAccessObject();
             var expHotels = createHotelList();
-            addEntities(expHotels);
+            addEntities(accessObject, expHotels);
 
             // Act
-            var actHotelsBL = _accessObject.hotelRepository.FindAll();
+            var actHotelsBL = accessObject.hotelRepository.FindAll();
             var actHotels = getHotelList(actHotelsBL);
 
             // Assert
             Assert.NotNull(actHotels);
+            Assert.Equal(expHotels.Count, actHotels.Count);
             Assert.True(areEqual(expHotels, actHotels));
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         [Fact]
@@ -39,18 +34,19 @@ namespace ToursTests.IntegrationTests
             const int hotelID = 1;
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expHotels = createHotelList();
-            addEntities(expHotels);
+            addEntities(accessObject, expHotels);
 
             // Act
-            var actHotelBL = _accessObject.hotelRepository.FindByID(hotelID);
+            var actHotelBL = accessObject.hotelRepository.FindByID(hotelID);
             var actHotel = new Hotel(actHotelBL);
 
             // Assert
             Assert.NotNull(actHotel);
             Assert.Equal(hotelID, actHotel.Hotelid);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
         
         [Fact]
@@ -59,6 +55,7 @@ namespace ToursTests.IntegrationTests
             const string city = "London";
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expHotels = new List<Hotel>();
             for (var i = 5; i < 10; i++)
             {
@@ -66,16 +63,16 @@ namespace ToursTests.IntegrationTests
                 var curHotel = new Hotel(curHotelB);
                 expHotels.Add(curHotel);
             }
-            addEntities(expHotels);
+            addEntities(accessObject, expHotels);
 
             // Act
-            var actHotelsBL = _accessObject.hotelRepository.FindHotelsByCity(city);
+            var actHotelsBL = accessObject.hotelRepository.FindHotelsByCity(city);
             var actHotels = getHotelList(actHotelsBL);
 
             // Assert
             Assert.NotNull(actHotels);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         private List<Hotel> createHotelList()
@@ -93,11 +90,11 @@ namespace ToursTests.IntegrationTests
             return hotels;
         }
 
-        void addEntities(List<Hotel> hotels)
+        void addEntities(TourAccessObject accessObject, List<Hotel> hotels)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.AddRange(hotels);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Hotels.AddRange(hotels);
+            accessObject.toursContext.SaveChanges();
         }
 
         private List<Hotel> getHotelList(List<HotelBL> hotelsBL)
@@ -134,11 +131,11 @@ namespace ToursTests.IntegrationTests
                     expHotel.Type == actHotel.Type);
         }
 
-        void Cleanup()
+        void Cleanup(TourAccessObject accessObject)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Hotels.RemoveRange(_accessObject.toursContext.Hotels);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Hotels.RemoveRange(accessObject.toursContext.Hotels);
+            accessObject.toursContext.SaveChanges();
         }
     }
 }

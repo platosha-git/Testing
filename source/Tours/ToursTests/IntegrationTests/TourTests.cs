@@ -9,29 +9,22 @@ namespace ToursTests.IntegrationTests
 {
     public class TourTests : IClassFixture<TourAccessObject>
     {
-        private readonly TourAccessObject _accessObject;
-
-        public TourTests() 
-        {
-            _accessObject = new TourAccessObject();
-        }
-
         [Fact]
         public void FindAll_NotNull()
         {
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTours = createTourList();
-            addEntities(expTours);
+            addEntities(accessObject, expTours);
 
             // Act
-            var actToursBL = _accessObject.tourRepository.FindAll();
+            var actToursBL = accessObject.tourRepository.FindAll();
             var actTours = getTourList(actToursBL);
 
             // Assert
             Assert.NotNull(actTours);
-            Assert.True(areEqual(expTours, actTours));
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         [Fact]
@@ -40,18 +33,19 @@ namespace ToursTests.IntegrationTests
             const int tourID = 1;
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTours = createTourList();
-            addEntities(expTours);
+            addEntities(accessObject, expTours);
 
             // Act
-            var actTourBL = _accessObject.tourRepository.FindByID(tourID);
+            var actTourBL = accessObject.tourRepository.FindByID(tourID);
             var actTour = new Tour(actTourBL);
 
             // Assert
             Assert.NotNull(actTour);
             Assert.Equal(tourID, actTour.Tourid);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
         
         [Fact]
@@ -61,6 +55,7 @@ namespace ToursTests.IntegrationTests
             var dateE = new DateTime(2022, 12, 31);
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTours = new List<Tour>();
             for (var i = 5; i < 10; i++)
             {
@@ -68,16 +63,16 @@ namespace ToursTests.IntegrationTests
                 var curTour = new Tour(curTourBL);
                 expTours.Add(curTour);
             }
-            addEntities(expTours);
+            addEntities(accessObject, expTours);
 
             // Act
-            var actToursBL = _accessObject.tourRepository.FindToursByDate(dateB, dateE);
+            var actToursBL = accessObject.tourRepository.FindToursByDate(dateB, dateE);
             var actTours = getTourList(actToursBL);
 
             // Assert
             Assert.NotNull(actTours);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         private List<Tour> createTourList()
@@ -95,11 +90,11 @@ namespace ToursTests.IntegrationTests
             return tours;
         }
 
-        void addEntities(List<Tour> tours)
+        void addEntities(TourAccessObject accessObject, List<Tour> tours)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Tours.AddRange(tours);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Tours.AddRange(tours);
+            accessObject.toursContext.SaveChanges();
         }
 
         private List<Tour> getTourList(List<TourBL> toursBL)
@@ -136,11 +131,11 @@ namespace ToursTests.IntegrationTests
                     expTours.Dateend == actTour.Dateend);
         }
 
-        void Cleanup()
+        void Cleanup(TourAccessObject accessObject)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Tours.RemoveRange(_accessObject.toursContext.Tours);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Tours.RemoveRange(accessObject.toursContext.Tours);
+            accessObject.toursContext.SaveChanges();
         }
     }
 }

@@ -8,29 +8,24 @@ namespace ToursTests.IntegrationTests
 {
     public class TransferTests : IClassFixture<TourAccessObject>
     {
-        private readonly TourAccessObject _accessObject;
-
-        public TransferTests() 
-        {
-            _accessObject = new TourAccessObject();
-        }
-
         [Fact]
         public void FindAll_NotNull()
         {
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTransf = createTransfList();
-            addEntities(expTransf);
+            addEntities(accessObject, expTransf);
 
             // Act
-            var actTransfBL = _accessObject.transferRepository.FindAll();
+            var actTransfBL = accessObject.transferRepository.FindAll();
             var actTransf = getTransfList(actTransfBL);
 
             // Assert
             Assert.NotNull(actTransf);
+            Assert.Equal(expTransf.Count, actTransf.Count);
             Assert.True(areEqual(expTransf, actTransf));
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         [Fact]
@@ -39,18 +34,19 @@ namespace ToursTests.IntegrationTests
             const int transferID = 1;
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTransf = createTransfList();
-            addEntities(expTransf);
+            addEntities(accessObject, expTransf);
 
             // Act
-            var actTransfBL = _accessObject.transferRepository.FindByID(transferID);
+            var actTransfBL = accessObject.transferRepository.FindByID(transferID);
             var actTransf = new Transfer(actTransfBL);
 
             // Assert
             Assert.NotNull(actTransf);
             Assert.Equal(transferID, actTransf.Transferid);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
         
         [Fact]
@@ -59,6 +55,7 @@ namespace ToursTests.IntegrationTests
             const string type = "Bus";
             
             // Arrange
+            var accessObject = new TourAccessObject();
             var expTransf = new List<Transfer>();
             for (var i = 5; i < 10; i++)
             {
@@ -66,16 +63,16 @@ namespace ToursTests.IntegrationTests
                 var curTransfer = new Transfer(curTransferBL);
                 expTransf.Add(curTransfer);
             }
-            addEntities(expTransf);
+            addEntities(accessObject, expTransf);
 
             // Act
-            var actTransfBL = _accessObject.transferRepository.FindTransferByType(type);
+            var actTransfBL = accessObject.transferRepository.FindTransferByType(type);
             var actTransf = getTransfList(actTransfBL);
 
             // Assert
             Assert.NotNull(actTransf);
 
-            Cleanup();
+            Cleanup(accessObject);
         }
 
         private List<Transfer> createTransfList()
@@ -93,11 +90,11 @@ namespace ToursTests.IntegrationTests
             return transfers;
         }
 
-        void addEntities(List<Transfer> transfers)
+        void addEntities(TourAccessObject accessObject, List<Transfer> transfers)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Transfers.AddRange(transfers);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Transfers.AddRange(transfers);
+            accessObject.toursContext.SaveChanges();
         }
 
         private List<Transfer> getTransfList(List<TransferBL> transfBL)
@@ -132,11 +129,11 @@ namespace ToursTests.IntegrationTests
                     expTransf.Cost == actTransf.Cost);
         }
 
-        void Cleanup()
+        void Cleanup(TourAccessObject accessObject)
         {
-            _accessObject.toursContext.ChangeTracker.Clear();
-            _accessObject.toursContext.Transfers.RemoveRange(_accessObject.toursContext.Transfers);
-            _accessObject.toursContext.SaveChanges();
+            accessObject.toursContext.ChangeTracker.Clear();
+            accessObject.toursContext.Transfers.RemoveRange(accessObject.toursContext.Transfers);
+            accessObject.toursContext.SaveChanges();
         }
     }
 }
