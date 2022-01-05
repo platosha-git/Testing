@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  Build:
 
     runs-on: ubuntu-latest
 
@@ -26,29 +26,16 @@ jobs:
       run: dotnet build --no-restore
       working-directory: source/Tours/ToursTests
 
-  unit_tests:
-    runs-on: ubuntu-latest
-    needs: build
+  Tests:
     steps:
-    - uses: actions/checkout@v2
     - name: Unit Tests
       run: dotnet test --filter FullyQualifiedName~UnitTests
       working-directory: source/Tours/ToursTests
 
-  integration_tests:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
     - name: Integration Tests
       run: dotnet test --filter FullyQualifiedName~IntegrationTests
       working-directory: source/Tours/ToursTests
 
-  e2e_tests:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - uses: actions/checkout@v2
     - name: E2E
       run: dotnet test --filter FullyQualifiedName~E2E
       working-directory: source/Tours/ToursTests
