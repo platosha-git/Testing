@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using ToursWeb.ModelsBL;
 using ToursWeb.ModelsDB;
 using ToursTests.Builders;
 using Xunit;
 using LightBDD.XUnit2;
 using LightBDD.Framework;
-using LightBDD.Framework.Parameters;
 using LightBDD.Framework.Scenarios;
-
-
 
 namespace ToursTests.E2E
 {
@@ -53,8 +48,7 @@ namespace ToursTests.E2E
 
             Cleanup();
         }
-
-
+        
         private CompositeStep When_acquire_hotel_data(string city)
         {
             return CompositeStep.DefineNew().AddSteps(
@@ -82,6 +76,7 @@ namespace ToursTests.E2E
         {
             _hotelsBL = _accessObject.hotelRepository.FindHotelsByCity(city);
         }
+        
         private void Then_acquired_hotel_data(List<HotelBL> hotels, string city)
         {
             Assert.NotNull(hotels);
@@ -90,10 +85,12 @@ namespace ToursTests.E2E
                 Assert.Equal(city, hotel.City);
             }
         }
+        
         private void When_make_tour_request()
         {
             _toursBL = _accessObject.tourRepository.FindAll();
         }
+        
         private void Then_acquired_tour_data()
         {
             var tours = getTourList(_toursBL);
@@ -106,6 +103,7 @@ namespace ToursTests.E2E
         {
             _tours = getToursByHotels(_tours, _hotelsBL);
         }
+        
         private void When_change_food_data()
         {
             _foodsBL = new List<FoodBL>();
@@ -118,6 +116,7 @@ namespace ToursTests.E2E
                 _accessObject.foodRepository.Update(curFoodBL);
             }
         }
+        
         private void Then_food_data_changed()
         {
             foreach (var food in _foodsBL)
@@ -125,7 +124,6 @@ namespace ToursTests.E2E
                 Assert.Equal(100, food.Cost);
             }
         }
-
 
         private List<Food> createFoodList()
         {
