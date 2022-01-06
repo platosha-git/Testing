@@ -6,6 +6,7 @@ using Xunit;
 
 namespace ToursTests.E2E
 {
+    [Collection("GetTours")]
     public class GetTours : IClassFixture<TourAccessObject>
     {
         private readonly TourAccessObject _accessObject;

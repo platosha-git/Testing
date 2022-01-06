@@ -14,6 +14,7 @@ using LightBDD.Framework.Scenarios;
 
 namespace ToursTests.E2E
 {
+    [Collection("GetTours")]
     [FeatureDescription(
     @"In order to make good offer
     As an user
@@ -46,19 +47,13 @@ namespace ToursTests.E2E
            _ => When_acquire_hotel_data(_city),
            _ => When_acquire_tour_data(),
            _ => When_filter_tour_data_by_hotel(),
-           _ => Then_change_food_data()
+           _ => When_change_food_data(),
+           _ => Then_food_data_changed()
             );
 
             Cleanup();
         }
 
-        private CompositeStep Then_change_food_data()
-        {
-            return CompositeStep.DefineNew().AddSteps(
-                _ => When_change_food_data(),
-                _ => Then_food_data_changed()
-                ).Build();
-        }
 
         private CompositeStep When_acquire_hotel_data(string city)
         {
